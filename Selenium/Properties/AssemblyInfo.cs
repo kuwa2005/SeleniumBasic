@@ -42,7 +42,5 @@ using Selenium.Internal;
 
 [assembly: NeutralResourcesLanguage("en-US")]
 
-#if Test
 [assembly: InternalsVisibleTo("Selenium.Tests")]
-#endif
 
