@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Selenium.Tests.Internals;
 using A = NUnit.Framework.Assert;
 using SetUp = NUnit.Framework.SetUpAttribute;
@@ -7,12 +7,7 @@ using TestFixture = NUnit.Framework.TestFixtureAttribute;
 using ExpectedException = NUnit.Framework.ExpectedExceptionAttribute;
 
 namespace Selenium.Tests {
-
-    [TestFixture(Browser.Firefox)]
-    [TestFixture(Browser.Opera)]
     [TestFixture(Browser.Chrome)]
-    [TestFixture(Browser.IE)]
-    [TestFixture(Browser.PhantomJS)]
     class TS_SearchContext : BaseBrowsers {
 
         public TS_SearchContext(Browser browser)

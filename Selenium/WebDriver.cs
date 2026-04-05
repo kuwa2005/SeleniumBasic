@@ -210,7 +210,7 @@ namespace Selenium {
         /// <summary>
         /// Starts a new Selenium testing session
         /// </summary>
-        /// <param name="browser">Name of the browser : firefox, ie, chrome, phantomjs</param>
+        /// <param name="browser">このフォークでは chrome のみ（別名 cr）。他は ChromeOnlyBrowserError。</param>
         /// <param name="baseUrl">The base URL</param>
         /// <example>
         /// <code lang="vbs">	
@@ -222,30 +222,10 @@ namespace Selenium {
         public void Start(string browser = null, string baseUrl = null) {
             try {
                 browser = ExpendBrowserName(browser);
-                switch (browser) {
-                    case "firefox":
-                        _service = FirefoxDriver.StartService(this);
-                        break;
-                    case "chrome":
-                        _service = ChromeDriver.StartService(this);
-                        break;
-                    case "phantomjs":
-                        _service = PhantomJSDriver.StartService(this);
-                        break;
-                    case "internet explorer":
-                        _service = IEDriver.StartService(this);
-                        break;
-                    case "MicrosoftEdge":
-                        _service = EdgeDriver.StartService(this);
-                        break;
-                    case "opera":
-                        _service = OperaDriver.StartService(this);
-                        break;
-                    default:
-                        throw new Errors.ArgumentError("Invalid browser name: {0}", browser);
-                }
+                EnsureChromeOnly(browser);
 
-                this.Capabilities.BrowserName = browser;
+                _service = ChromeDriver.StartService(this);
+                this.Capabilities.BrowserName = "chrome";
 
                 RegisterRunningObject();
 
@@ -265,7 +245,7 @@ namespace Selenium {
         /// Starts remotely a new Selenium testing session
         /// </summary>
         /// <param name="executorUri">Remote executor address (ex : "http://localhost:4444/wd/hub")</param>
-        /// <param name="browser">Name of the browser : firefox, ie, chrome, phantomjs, htmlunit, htmlunitwithjavascript, android, ipad, opera</param>
+        /// <param name="browser">このフォークでは chrome のみ。リモート Grid 上のセッションも Chrome として起動する。</param>
         /// <param name="version">Browser version</param>
         /// <param name="platform">Platform: WINDOWS, LINUX, MAC, ANDROID...</param>
         /// <example>
@@ -278,29 +258,12 @@ namespace Selenium {
         public void StartRemotely(string executorUri, string browser = null, string version = null, string platform = null) {
             try {
                 browser = ExpendBrowserName(browser);
-                switch (browser) {
-                    case "firefox":
-                        FirefoxDriver.ExtendCapabilities(this, true);
-                        break;
-                    case "chrome":
-                        ChromeDriver.ExtendCapabilities(this, true);
-                        break;
-                    case "phantomjs":
-                        PhantomJSDriver.ExtendCapabilities(this, true);
-                        break;
-                    case "internet explorer":
-                        IEDriver.ExtendCapabilities(this, true);
-                        break;
-                    case "MicrosoftEdge":
-                        EdgeDriver.ExtendCapabilities(this, true);
-                        break;
-                    case "opera":
-                        OperaDriver.ExtendCapabilities(this, true);
-                        break;
-                }
+                EnsureChromeOnly(browser);
+
+                ChromeDriver.ExtendCapabilities(this, true);
 
                 this.Capabilities.Platform = platform;
-                this.Capabilities.BrowserName = browser;
+                this.Capabilities.BrowserName = "chrome";
                 if (!string.IsNullOrEmpty(version))
                     this.Capabilities.BrowserVersion = version;
 
@@ -323,8 +286,7 @@ namespace Selenium {
             if (_session != null) {
                 try {
                     if (_session.IsLocal) {
-                        if (!(_service is FirefoxService))
-                            _session.Delete();
+                        _session.Delete();
                         _service.Quit(_session.server);
                     } else {
                         _session.Delete();
@@ -333,6 +295,11 @@ namespace Selenium {
             }
 
             this.Dispose();
+        }
+
+        static void EnsureChromeOnly(string normalizedBrowser) {
+            if (normalizedBrowser != "chrome")
+                throw new Errors.ChromeOnlyBrowserError(normalizedBrowser);
         }
 
         private string ExpendBrowserName(string browser) {

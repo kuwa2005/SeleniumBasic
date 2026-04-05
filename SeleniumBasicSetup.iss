@@ -53,13 +53,8 @@ MsgCOMInvokeFailed=Installation failed. The installer was unable to call the reg
 Name: "pkg_core"; Description: ".Net core libraries";                         Types: full compact custom; Flags: fixed;
 Name: "pkg_doc";  Description: "Templates and examples";                      Types: full compact custom;
 Name: "pkg_cons"; Description: "Enhanced console runner for VBScript files";  Types: full compact custom;
-Name: "pkg_ff";   Description: "WebDriver for Firefox";                       Types: full custom;
-Name: "pkg_cr";   Description: "WebDriver for Chrome";                        Types: full custom;
-Name: "pkg_op";   Description: "WebDriver for Opera";                         Types: full custom;
-Name: "pkg_ie";   Description: "WebDriver for Internet Explorer";             Types: full custom;
-Name: "pkg_edg";  Description: "WebDriver for Microsoft Edge";                Types: full custom;
-Name: "pkg_pjs";  Description: "WebDriver for PhantomJS (headless browser)";  Types: full custom;
-Name: "pkg_ide";  Description: "SeleniumIDE plugin for Firefox";              Types: full custom;
+; Chrome のみ同梱（このフォークは他ブラウザ用ドライバをメンテしない）
+Name: "pkg_cr";   Description: "WebDriver for Google Chrome (chromedriver)";   Types: full compact custom; Flags: fixed;
 
 [Files]                                                                                             
 Source: "Selenium\bin\Release\Selenium.dll";   DestDir: "{app}"; Flags: ignoreversion; Components: pkg_core;
@@ -75,17 +70,8 @@ Source: "CHANGELOG.txt"; DestDir: "{app}"; Flags: ignoreversion overwritereadonl
 
 Source: "VbsConsole\bin\Release\vbsc.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: pkg_cons;
 
-;drivers
-Source: "References\firefoxdriver.xpi"; DestDir: "{app}"; Flags: ignoreversion; Components: pkg_ff;
+; WebDriver（Chrome のみ）
 Source: "References\chromedriver.exe";  DestDir: "{app}"; Flags: ignoreversion; Components: pkg_cr;
-Source: "References\operadriver.exe";   DestDir: "{app}"; Flags: ignoreversion; Components: pkg_op;
-Source: "References\phantomjs.exe";     DestDir: "{app}"; Flags: ignoreversion; Components: pkg_pjs;
-Source: "References\iedriver.exe";      DestDir: "{app}"; Flags: ignoreversion; Components: pkg_ie;
-;Source: "References\iedriver64.exe";    DestDir: "{app}"; Flags: ignoreversion; Components: pkg_ie;  Check: IsWin64;
-Source: "References\edgedriver.exe";    DestDir: "{app}"; Flags: ignoreversion; Components: pkg_edg;
-
-;Firefox extensions
-Source: "FirefoxAddons\bin\extensions.xpi"; DestDir: "{app}"; Flags: ignoreversion; Components: pkg_ide;
 
 ;examples                                                                                                                                                     
 Source: "Scripts\*.*" ;               DestDir: "{app}\Scripts";             Flags: ignoreversion overwritereadonly; Attribs:readonly; Components: pkg_core;
@@ -119,92 +105,13 @@ Name: "{group}\API documentation";  Filename: "{app}\Selenium.chm";
 Name: "{group}\ChangeLog";          Filename: "{app}\CHANGELOG.txt";    
 Name: "{group}\Uninstall";          Filename: "{uninstallexe}"
 
-Name: "{group}\Start Firefox";      Filename: "{app}\Scripts\StartFirefox.vbs";          Components: pkg_ff;
 Name: "{group}\Start Chrome";       Filename: "{app}\Scripts\StartChrome.vbs";           Components: pkg_cr;
 Name: "{group}\Start Chrome Debug"; Filename: "{app}\Scripts\StartChromeDebug.vbs";      Components: pkg_cr;
-Name: "{group}\Start IE";           Filename: "{app}\Scripts\StartInternetExplorer.vbs"; Components: pkg_ie;
-Name: "{group}\Start Opera";        Filename: "{app}\Scripts\StartOpera.vbs";            Components: pkg_op;
-Name: "{group}\Start PhantomJS";    Filename: "{app}\Scripts\StartPhantomJS.vbs";        Components: pkg_pjs;
 
 
 [Registry]
 
-;Firefox plugins
-;Root: HKCU; Subkey: "Software\Mozilla\Firefox\Extensions"; ValueName: "{{a6fd85ed-e919-4a43-a5af-8da18bda539f}"; ValueType: string; ValueData:"{app}\selenium-ide.xpi"; Flags: uninsdeletevalue; Components: pkg_ide;
-;Root: HKCU; Subkey: "Software\Mozilla\Firefox\Extensions"; ValueName: "vbformatters@florent.breheret"; ValueType: string; ValueData:"{app}\vbformatters.xpi"; Flags: uninsdeletevalue; Components: pkg_ide;
-;Root: HKCU; Subkey: "Software\Mozilla\Firefox\Extensions"; ValueName: "implicit-wait@florent.breheret"; ValueType: string; ValueData:"{app}\implicit-wait.xpi"; Flags: uninsdeletevalue; Components: pkg_ide;
-
-;IE tweaks: Force the tabs to run in the same process as the manager process
-;Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Main"; ValueName: "TabProcGrowth"; ValueType: dword; ValueData: 0; Flags: uninsdeletevalue; Components: pkg_ie;
-
-;IE tweaks: Allow file navigation
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_LOCALMACHINE_LOCKDOWN"; ValueName: "iexplore.exe"; ValueType: dword; ValueData: 0; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_RESTRICT_FILEDOWNLOAD"; ValueName: "iexplore.exe"; ValueType: dword; ValueData: 0; Components: pkg_ie;
-
-;IE tweaks: Maintain a connection to the instance (for IE11)
-Root: HKCU; Subkey: "SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE"; ValueName: "iexplore.exe"; ValueType: dword; ValueData: 0; Components: pkg_ie;
-
-;IE tweaks: Restore default zoom level
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Zoom"; ValueName: "ZoomFactor"; Flags: dontcreatekey deletevalue; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Zoom"; ValueName: "ResetTextSizeOnStartup"; ValueType: dword; ValueData: 1       ; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Zoom"; ValueName: "ResetZoomOnStartup";     ValueType: dword; ValueData: 1       ; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Zoom"; ValueName: "ResetZoomOnStartup2";    ValueType: dword; ValueData: 1       ; Components: pkg_ie;
-
-;IE tweaks: Disable enhanced protected mode
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Main"; ValueName: "Isolation";      Flags: dontcreatekey deletevalue; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Main"; ValueName: "Isolation64Bit"; Flags: dontcreatekey deletevalue; Components: pkg_ie;
-
-;IE tweaks: Disable autocomplete
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Explorer\AutoComplete"; ValueName: "AutoSuggest"; ValueType: string; ValueData: "no"; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Main"; ValueName: "Use FormSuggest";       ValueType: string; ValueData: "no"; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Main"; ValueName: "FormSuggest Passwords"; ValueType: string; ValueData: "no"; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Main"; ValueName: "FormSuggest PW Ask";    ValueType: string; ValueData: "no"; Components: pkg_ie;
-
-;IE tweaks: Disable warn
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings"; ValueName: "WarnonBadCertRecving"; ValueType: dword; ValueData: 0; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings"; ValueName: "WarnonZoneCrossing";   ValueType: dword; ValueData: 0; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings"; ValueName: "WarnOnPostRedirect";   ValueType: dword; ValueData: 0; Components: pkg_ie;
-
-;IE tweaks: Disable Check for publisher's certificate revocation
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\WinTrust\Trust Providers\Software Publishing"; ValueName: "State"; ValueType: dword; ValueData: 146944; Components: pkg_ie;
-;IE tweaks: Disable Check for server certificate revocation
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings"; ValueName: "CertificateRevocation"; ValueType: dword; ValueData: 0; Components: pkg_ie;
-;IE tweaks: Disable Check for signatures on downloaded programs
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Download"; ValueName: "CheckExeSignatures"; ValueType: string; ValueData: "no"; Components: pkg_ie;
-
-;IE tweaks: Disable Check default browser
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Main"; ValueName: "Check_Associations"; ValueType: string; ValueData: "no"; Components: pkg_ie;
-
-;IE tweaks: Disable accelerator button
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Activities"; ValueName: "NoActivities"; ValueType: dword; ValueData: 1; Components: pkg_ie;
-
-;IE tweaks: Set the same protected mode for all zones  Disable=3 Enable=0
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Main"; ValueName: "NoProtectedModeBanner"; ValueType: dword; ValueData: 1; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\0"; ValueName: "2500"; ValueType: dword; ValueData: 3; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\1"; ValueName: "2500"; ValueType: dword; ValueData: 3; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2"; ValueName: "2500"; ValueType: dword; ValueData: 3; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3"; ValueName: "2500"; ValueType: dword; ValueData: 3; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\4"; ValueName: "2500"; ValueType: dword; ValueData: 3; Components: pkg_ie;
-
-;IE tweaks: Enable all cookies
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings";         ValueName: "PrivacyAdvanced"; ValueType: dword; ValueData: 1; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3"; ValueName: "1A10";            ValueType: dword; ValueData: 1; Components: pkg_ie;
-
-;IE tweak: Allow HTTP Basic Authentication in url
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_HTTP_USERNAME_PASSWORD_DISABLE"; ValueName: "iexplore.exe"; ValueType: dword; ValueData: 0; Components: pkg_ie;
-
-;IE tweak: Turn off popup blocker
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\New Windows"; ValueName: "PopupMgr"; ValueType: dword; ValueData: 0; Components: pkg_ie;
-
-;IE tweak: Delete browsing history on exit
-Root: HKCU; Subkey: "Software\Microsoft\Internet Explorer\Privacy"; ValueName: "ClearBrowsingHistoryOnExit"; ValueType: dword; ValueData: 1; Components: pkg_ie;
-
-;IE tweak: Disable cache
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings\CACHE";             ValueName: "Persistent";  ValueType: dword; ValueData: 0;    Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings";                   ValueName: "SyncMode5";   ValueType: dword; ValueData: 3;    Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings\Url History";       ValueName: "DaysToKeep";  ValueType: dword; ValueData: 0;    Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings\5.0\Cache\Content"; ValueName: "CacheLimit";  ValueType: dword; ValueData: 2000; Components: pkg_ie;
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Internet Settings\Cache\Content";     ValueName: "CacheLimit";  ValueType: dword; ValueData: 2000; Components: pkg_ie;
+; （Chrome 専用フォーク）旧 Firefox / IE 向けレジストリは同梱しない
 
 ;File association for the console
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\App Paths\vbsc.exe"; ValueType: string; ValueData: "{app}\vbsc.exe"; Flags: deletekey uninsdeletekey; Components: pkg_cons;
@@ -232,7 +139,6 @@ Root: HKCU; Subkey: "Software\Microsoft\Windows Script Host\Settings"; ValueName
 
 [Run]
 ;Filename: "{app}\RegNet.exe"; Parameters: "-r"; WorkingDir: {app}; Flags: waituntilterminated runascurrentuser runhidden; StatusMsg: "Register for COM interoperability";
-Filename: "{code:GetAppPath|firefox.exe}"; Parameters: "-url ""{app}\extensions.xpi"""; WorkingDir: {app}; Flags: shellexec postinstall skipifsilent runascurrentuser; Components: pkg_ide; Check: HasFirefox; Description: "Install the Selenium IDE Addon for Firefox";
 
 [UninstallRun]
 ;Filename: "{app}\RegNet.exe"; Parameters: "-u"; WorkingDir: {app}; Flags: waituntilterminated runascurrentuser runhidden; StatusMsg: "Unregister for COM interoperability"; 

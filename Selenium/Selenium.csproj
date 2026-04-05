@@ -117,6 +117,7 @@
     <Compile Include="Common\SearchContext.cs" />
     <Compile Include="Core\WindowContext.cs" />
     <Compile Include="Errors\ArgumentErrors.cs" />
+    <Compile Include="Errors\ChromeOnlyBrowserError.cs" />
     <Compile Include="Errors\InvalidOperationError.cs" />
     <Compile Include="Errors\NotImplementedError.cs" />
     <Compile Include="Errors\PdfErrors.cs" />
@@ -189,7 +190,6 @@
     <Compile Include="Common\Cookies.cs" />
     <Compile Include="Drivers\ChromeDriver.cs" />
     <Compile Include="Drivers\FirefoxDriver.cs" />
-    <Compile Include="Core\FirefoxService.cs" />
     <Compile Include="Drivers\IEDriver.cs" />
     <Compile Include="Drivers\OperaDriver.cs" />
     <Compile Include="Drivers\PhantomJSDriver.cs" />
@@ -224,20 +224,12 @@
     <Compile Include="Common\Window.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Core\FirefoxPrefs.js" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="key.snk" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if exist "$(ProjectDir)..\References\firefoxdriver.xpi" xcopy /D /Y "$(ProjectDir)..\References\firefoxdriver.xpi" .
-if exist "$(ProjectDir)..\References\chromedriver.exe" xcopy /D /Y "$(ProjectDir)..\References\chromedriver.exe" .
-if exist "$(ProjectDir)..\References\operadriver.exe" xcopy /D /Y "$(ProjectDir)..\References\operadriver.exe" .
-if exist "$(ProjectDir)..\References\iedriver.exe" xcopy /D /Y "$(ProjectDir)..\References\iedriver.exe" .
-if exist "$(ProjectDir)..\References\iedriver64.exe" xcopy /D /Y "$(ProjectDir)..\References\iedriver64.exe" .
-if exist "$(ProjectDir)..\References\phantomjs.exe" xcopy /D /Y "$(ProjectDir)..\References\phantomjs.exe" .</PostBuildEvent>
+    <PostBuildEvent>if exist "$(ProjectDir)..\References\chromedriver.exe" xcopy /D /Y "$(ProjectDir)..\References\chromedriver.exe" .</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

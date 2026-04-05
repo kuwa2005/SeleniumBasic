@@ -12,6 +12,12 @@
 
 元リポジトリ: <https://github.com/florentbr/SeleniumBasic>
 
+## ブラウザ範囲（このフォーク）
+
+- **メンテナンス・実装の対象は Google Chrome（chromedriver）のみ**とする。
+- **Firefox / Internet Explorer / Microsoft Edge / Opera / PhantomJS** については、**COM の ProgId・型・メソッド署名は維持**するが、**起動ロジックは削除済み**（`Start` / `StartRemotely` は chrome のみ通す。他ブラウザ名は `ChromeOnlyBrowserError`）。
+- PhantomJS は SSL 等の理由により**サポート対象外**（スタブのみ）。
+
 ## 絶対的必須：下位互換性
 
 - **ランタイムの問題**（特定 OS・ブラウザ版・ドライバの世代・ネットワークやタイミングなど**環境依存の成否**）は、方針決定の議論では**いったん切り離してよい**。  

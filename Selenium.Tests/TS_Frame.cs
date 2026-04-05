@@ -1,16 +1,11 @@
-﻿using Selenium.Tests.Internals;
+using Selenium.Tests.Internals;
 using A = NUnit.Framework.Assert;
 using SetUp = NUnit.Framework.SetUpAttribute;
 using TestCase = NUnit.Framework.TestCaseAttribute;
 using TestFixture = NUnit.Framework.TestFixtureAttribute;
 
 namespace Selenium.Tests {
-
-    [TestFixture(Browser.Firefox)]
-    [TestFixture(Browser.Opera)]
     [TestFixture(Browser.Chrome)]
-    [TestFixture(Browser.IE)]
-    [TestFixture(Browser.PhantomJS)]
     class TS_Frame : BaseBrowsers {
 
         public TS_Frame(Browser browser)
@@ -64,7 +59,6 @@ namespace Selenium.Tests {
         }
 
         [TestCase]
-        [IgnoreFixture(Browser.PhantomJS, "Not supported")]
         public void ShouldSwitchToParentFrame() {
             A.AreEqual("Frame1", driver.FindElementById("info").Text());
 

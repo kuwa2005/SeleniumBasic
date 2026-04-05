@@ -3,8 +3,9 @@ using System;
 
 namespace Selenium.Tests.Internals {
 
+    /// <summary>このフォークでは Chrome のみテストする。</summary>
     public enum Browser {
-        Firefox, Chrome, Opera, IE, PhantomJS
+        Chrome
     }
 
     abstract class BaseBrowsers {
@@ -27,24 +28,10 @@ namespace Selenium.Tests.Internals {
             driver.Quit();
         }
 
-        private string GetBrowserTypeLib(Browser browser) {
-            switch (browser) {
-                case Browser.Firefox: return "Selenium.FirefoxDriver";
-                case Browser.Chrome: return "Selenium.ChromeDriver";
-                case Browser.Opera: return "Selenium.OperaDriver";
-                case Browser.IE: return "Selenium.IEDriver";
-                case Browser.PhantomJS: return "Selenium.PhantomJSDriver";
-            }
-            throw new Exception("Browser not supported: " + browser.ToString());
-        }
-
         private WebDriver GetBrowserInstance(Browser browser) {
             switch (browser) {
-                case Browser.Firefox: return new Selenium.FirefoxDriver();
-                case Browser.Chrome: return new Selenium.ChromeDriver();
-                case Browser.Opera: return new Selenium.OperaDriver();
-                case Browser.IE: return new Selenium.IEDriver();
-                case Browser.PhantomJS: return new Selenium.PhantomJSDriver();
+                case Browser.Chrome:
+                    return new Selenium.ChromeDriver();
             }
             throw new Exception("Browser not supported: " + browser.ToString());
         }

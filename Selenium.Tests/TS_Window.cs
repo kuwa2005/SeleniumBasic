@@ -1,16 +1,11 @@
-﻿using Selenium.Tests.Internals;
+using Selenium.Tests.Internals;
 using A = NUnit.Framework.Assert;
 using SetUp = NUnit.Framework.SetUpAttribute;
 using TestCase = NUnit.Framework.TestCaseAttribute;
 using TestFixture = NUnit.Framework.TestFixtureAttribute;
 
 namespace Selenium.Tests {
-
-    [TestFixture(Browser.Firefox)]
-    [TestFixture(Browser.Opera)]
     [TestFixture(Browser.Chrome)]
-    [TestFixture(Browser.IE)]
-    [TestFixture(Browser.PhantomJS)]
     class TS_Window : BaseBrowsers {
 
         public TS_Window(Browser browser)
@@ -42,7 +37,6 @@ namespace Selenium.Tests {
         }
 
         [TestCase]
-        [IgnoreFixture(Browser.PhantomJS, "Not supported")]
         public void ShouldGetAndSetPosition() {
             var win = driver.Window;
             win.SetPosition(17, 23);
@@ -58,8 +52,6 @@ namespace Selenium.Tests {
         }
 
         [TestCase]
-        [IgnoreFixture(Browser.PhantomJS, "Not supported")]
-        [IgnoreFixture(Browser.Opera, "Issue #14")]
         public void ShouldCloseWindow() {
             var win1 = driver.Window;
             driver.FindElementByLinkText("Window2").Click();

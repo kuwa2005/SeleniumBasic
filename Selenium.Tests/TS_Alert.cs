@@ -1,16 +1,11 @@
-﻿using Selenium.Tests.Internals;
+using Selenium.Tests.Internals;
 using A = NUnit.Framework.Assert;
 using TestCase = NUnit.Framework.TestCaseAttribute;
 using TestFixture = NUnit.Framework.TestFixtureAttribute;
 using ExpectedException = NUnit.Framework.ExpectedExceptionAttribute;
 
 namespace Selenium.Tests {
-
-    [TestFixture(Browser.Firefox)]
-    [TestFixture(Browser.Opera)]
     [TestFixture(Browser.Chrome)]
-    [TestFixture(Browser.IE)]
-    //[TestFixture(Browser.PhantomJS)]
     class TS_Alert : BaseBrowsers {
 
         public TS_Alert(Browser browser)

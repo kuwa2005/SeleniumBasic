@@ -1,4 +1,4 @@
-﻿using Selenium.Tests.Internals;
+using Selenium.Tests.Internals;
 using A = NUnit.Framework.Assert;
 using SetUp = NUnit.Framework.SetUpAttribute;
 using TearDown = NUnit.Framework.TearDownAttribute;
@@ -6,12 +6,7 @@ using TestCase = NUnit.Framework.TestCaseAttribute;
 using TestFixture = NUnit.Framework.TestFixtureAttribute;
 
 namespace Selenium.Tests {
-
-    [TestFixture(Browser.Firefox)]
-    [TestFixture(Browser.Opera)]
     [TestFixture(Browser.Chrome)]
-    [TestFixture(Browser.IE)]
-    //[TestFixture(Browser.PhantomJS)]
     class TS_Windows : BaseBrowsers {
 
         public TS_Windows(Browser browser)
@@ -23,7 +18,6 @@ namespace Selenium.Tests {
         }
 
         [TestCase]
-        [IgnoreFixture(Browser.Opera, "Issue #14")]
         public void ShouldSwitchToNextWindows() {
             driver.Get("/win1.html");
             driver.Wait(100);
@@ -42,7 +36,6 @@ namespace Selenium.Tests {
         }
 
         [TestCase]
-        [IgnoreFixture(Browser.Opera, "Issue #14")]
         public void ShouldSwitchToWindows() {
             driver.Get("/win1.html");
             A.AreEqual("Window1", driver.Title);
@@ -63,8 +56,6 @@ namespace Selenium.Tests {
         }
 
         [TestCase]
-        [IgnoreFixture(Browser.IE, "Not supported")]
-        [IgnoreFixture(Browser.Opera, "Issue #14")]
         public void ShouldOpenLinkInNewWindow() {
             driver.Get("/links.html");
             driver.FindElementByLinkText("Win1", 5000).Click(Keys.Shift);

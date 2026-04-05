@@ -104,7 +104,7 @@ namespace Selenium {
         /// </summary>
         /// <returns></returns>
         public WebDriver OperaDriver() {
-            return new ChromeDriver();
+            return new OperaDriver();
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Selenium {
         /// </summary>
         /// <returns></returns>
         public WebDriver IEDriver() {
-            return new ChromeDriver();
+            return new IEDriver();
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace Selenium {
         /// </summary>
         /// <returns></returns>
         public WebDriver PhantomJSDriver() {
-            return new ChromeDriver();
+            return new PhantomJSDriver();
         }
 
 

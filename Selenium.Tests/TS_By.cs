@@ -1,4 +1,4 @@
-﻿using Selenium.ComInterfaces;
+using Selenium.ComInterfaces;
 using Selenium.Tests.Internals;
 using A = NUnit.Framework.Assert;
 using SetUp = NUnit.Framework.SetUpAttribute;
@@ -7,7 +7,7 @@ using TestFixture = NUnit.Framework.TestFixtureAttribute;
 
 namespace Selenium.Tests {
 
-    [TestFixture(Browser.Firefox)]
+    [TestFixture(Browser.Chrome)]
     class TS_By : BaseBrowsers {
 
         _By by = new By();

@@ -1,16 +1,11 @@
-﻿using Selenium.Tests.Internals;
+using Selenium.Tests.Internals;
 using A = NUnit.Framework.Assert;
 using SetUp = NUnit.Framework.SetUpAttribute;
 using TestCase = NUnit.Framework.TestCaseAttribute;
 using TestFixture = NUnit.Framework.TestFixtureAttribute;
 
 namespace Selenium.Tests {
-
-    [TestFixture(Browser.Firefox)]
-    [TestFixture(Browser.Opera)]
     [TestFixture(Browser.Chrome)]
-    [TestFixture(Browser.IE)]
-    [TestFixture(Browser.PhantomJS)]
     class TS_Keyboard : BaseBrowsers {
 
         public TS_Keyboard(Browser browser)
@@ -32,8 +27,6 @@ namespace Selenium.Tests {
         }
 
         [TestCase]
-        [IgnoreFixture(Browser.Chrome, "Not supported")]
-        [IgnoreFixture(Browser.Opera, "Not supported")]
         public void ShouldSendAndReadCharsSMP() {
             string expected = "🌍🍈👽💔";
             var ele = driver.FindElementById("input__search");
@@ -43,8 +36,6 @@ namespace Selenium.Tests {
         }
 
         [TestCase]
-        [IgnoreFixture(Browser.Chrome, "Not supported")]
-        [IgnoreFixture(Browser.Opera, "Not supported")]
         public void ShouldSendAndReadCharsSIP() {
             string expected = "𠀀𠀁𠀂𠀃𤁴𤁵𤁶𫜲𫜳𫜴";
             var ele = driver.FindElementById("input__search");
@@ -54,7 +45,6 @@ namespace Selenium.Tests {
         }
 
         [TestCase]
-        [IgnoreFixture(Browser.IE, "Not supported")]
         public void ShouldHandleModifiersWithDriver() {
             //Delete with driver SendKeys
             var ele = driver.FindElementById("input__search");
@@ -66,7 +56,6 @@ namespace Selenium.Tests {
         }
 
         [TestCase]
-        [IgnoreFixture(Browser.IE, "Not supported")]
         public void ShouldHandleModifiersWithKeyboard() {
             //Delete with driver SendKeys
             var ele = driver.FindElementById("input__search");
@@ -81,7 +70,6 @@ namespace Selenium.Tests {
         }
 
         [TestCase]
-        [IgnoreFixture(Browser.IE, "Not supported")]
         public void ShouldHandleModifiersWithElement() {
             //Delete with element SendKeys
             var ele = driver.FindElementById("input__search");
@@ -92,7 +80,6 @@ namespace Selenium.Tests {
         }
 
         [TestCase]
-        [IgnoreFixture(Browser.IE, "Not supported")]
         public void ShouldHandleModifiersWithActions() {
             //Delete with action SendKeys
             var ele = driver.FindElementById("input__search");
