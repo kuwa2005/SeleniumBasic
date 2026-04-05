@@ -53,7 +53,7 @@ MsgCOMInvokeFailed=Installation failed. The installer was unable to call the reg
 Name: "pkg_core"; Description: ".Net core libraries";                         Types: full compact custom; Flags: fixed;
 Name: "pkg_doc";  Description: "Templates and examples";                      Types: full compact custom;
 Name: "pkg_cons"; Description: "Enhanced console runner for VBScript files";  Types: full compact custom;
-; Chrome のみ同梱（このフォークは他ブラウザ用ドライバをメンテしない）
+; 正式対応は Chrome / Edge。インストーラ同梱は chromedriver（msedgedriver はユーザーが取得し必要なら {app} に配置）
 Name: "pkg_cr";   Description: "WebDriver for Google Chrome (chromedriver)";   Types: full compact custom; Flags: fixed;
 
 [Files]                                                                                             
@@ -70,7 +70,7 @@ Source: "CHANGELOG.txt"; DestDir: "{app}"; Flags: ignoreversion overwritereadonl
 
 Source: "VbsConsole\bin\Release\vbsc.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: pkg_cons;
 
-; WebDriver（Chrome のみ）
+; WebDriver（chromedriver。Edge 用 msedgedriver は同梱しない）
 Source: "References\chromedriver.exe";  DestDir: "{app}"; Flags: ignoreversion; Components: pkg_cr;
 
 ;examples                                                                                                                                                     
@@ -107,11 +107,12 @@ Name: "{group}\Uninstall";          Filename: "{uninstallexe}"
 
 Name: "{group}\Start Chrome";       Filename: "{app}\Scripts\StartChrome.vbs";           Components: pkg_cr;
 Name: "{group}\Start Chrome Debug"; Filename: "{app}\Scripts\StartChromeDebug.vbs";      Components: pkg_cr;
+Name: "{group}\Start Edge";        Filename: "{app}\Scripts\StartEdge.vbs";              Components: pkg_cr;
 
 
 [Registry]
 
-; （Chrome 専用フォーク）旧 Firefox / IE 向けレジストリは同梱しない
+; （正式対応は Chrome / Edge）旧 Firefox / IE 向けレジストリは同梱しない
 
 ;File association for the console
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\App Paths\vbsc.exe"; ValueType: string; ValueData: "{app}\vbsc.exe"; Flags: deletekey uninsdeletekey; Components: pkg_cons;

@@ -232,7 +232,7 @@ namespace Selenium {
         /// <summary>
         /// Starts a new Selenium testing session
         /// </summary>
-        /// <param name="browser">chrome（別名 cr）または edge / MicrosoftEdge。他は ChromeOnlyBrowserError。</param>
+        /// <param name="browser">正式対応は chrome（別名 cr）と edge / MicrosoftEdge のみ。他は ChromeOnlyBrowserError。</param>
         /// <param name="baseUrl">The base URL</param>
         /// <example>
         /// <code lang="vbs">	
@@ -272,7 +272,7 @@ namespace Selenium {
         /// Starts remotely a new Selenium testing session
         /// </summary>
         /// <param name="executorUri">Remote executor address (ex : "http://localhost:4444/wd/hub")</param>
-        /// <param name="browser">chrome または edge / MicrosoftEdge。他は ChromeOnlyBrowserError。</param>
+        /// <param name="browser">正式対応は chrome と edge / MicrosoftEdge のみ。他は ChromeOnlyBrowserError。</param>
         /// <param name="version">Browser version</param>
         /// <param name="platform">Platform: WINDOWS, LINUX, MAC, ANDROID...</param>
         /// <example>

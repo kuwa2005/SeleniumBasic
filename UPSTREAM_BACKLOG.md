@@ -3,7 +3,7 @@
 [florentbr/SeleniumBasic](https://github.com/florentbr/SeleniumBasic) の Open Issue から、**このフォークで追う価値が高いもの**を選び、**実装順（おまかせ版）**を固定したメモ。  
 方針は `MAINTENANCE_MEMO.md`（特に**下位互換最優先**）に従う。
 
-**スコープ**: **主に Chrome**。Edge（Chromium）はフォークで **msedgedriver 経路を復活**済み。フェーズ C の Edge 系 upstream Issue は**参考用・優先度低**（必要ならフォーク Issue で個別に追う）。
+**スコープ（このフォーク）**: **正式対応ブラウザは Google Chrome と Microsoft Edge（Chromium）のみ**（chromedriver / msedgedriver をメンテ）。フェーズ C の Edge 系 upstream Issue は、**本フォークの Edge 実装との差分確認用・優先度低**（必要ならフォーク Issue で個別に追う）。
 
 **フォーク Issue**: 下表の「フォーク Issue」列は [kuwa2005/SeleniumBasic](https://github.com/kuwa2005/SeleniumBasic) 上の追跡用 Issue（`UPSTREAM_BACKLOG.md` 由来）へのリンクです。
 

@@ -1,6 +1,6 @@
 # SeleniumBasic（フォーク）
 
-[florentbr/SeleniumBasic](https://github.com/florentbr/SeleniumBasic) をベースにしたフォークです。**メンテナンスの主対象は Google Chrome（chromedriver）**です。**Microsoft Edge（Chromium / msedgedriver）**も `Selenium.EdgeDriver` および `Start "edge"` で利用できます。その他のブラウザは従来どおり COM スタブ寄りです。
+[florentbr/SeleniumBasic](https://github.com/florentbr/SeleniumBasic) をベースにしたフォークです。**正式にサポートするブラウザは次の 2 つのみです: Google Chrome（chromedriver）と Microsoft Edge / Chromium（msedgedriver）**。`Selenium.ChromeDriver`・`Selenium.EdgeDriver`、または `WebDriver.Start "chrome"` / `"edge"` で利用します。**Firefox / Internet Explorer / Opera / PhantomJS 等は COM 互換のため ProgId・型を残していますが、`Start` / `StartRemotely` では使用できません**（`ChromeOnlyBrowserError）。
 
 ## ドキュメント
 

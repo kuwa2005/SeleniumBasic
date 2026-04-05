@@ -3,7 +3,7 @@ using System;
 
 namespace Selenium.Tests.Internals {
 
-    /// <summary>このフォークでは Chrome のみテストする。</summary>
+    /// <summary>このフォークの正式対応ブラウザは Chrome / Edge。現状の NUnit フィクスチャは Chrome のみ。</summary>
     public enum Browser {
         Chrome
     }

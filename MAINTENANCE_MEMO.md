@@ -14,8 +14,8 @@
 
 ## ブラウザ範囲（このフォーク）
 
-- **メンテナンスの主対象は Google Chrome（chromedriver）**とする。**Microsoft Edge（Chromium / msedgedriver）**も `Start "edge"` / `EdgeDriver` で**ローカル・リモートとも利用可能**（`README.md` の探索順・`SetEdgeDriverPath`）。
-- **Firefox / Internet Explorer / Opera / PhantomJS** については、**COM の ProgId・型・メソッド署名は維持**するが、**起動ロジックは削除済み**（`Start` / `StartRemotely` は **chrome と MicrosoftEdge 以外**は `ChromeOnlyBrowserError`）。
+- **正式対応（機能追加・不具合修正・リグレッション調査の対象）は Google Chrome（chromedriver）と Microsoft Edge（Chromium / msedgedriver）の 2 ブラウザのみ**とする。いずれもローカル・リモートの `Start` / `StartRemotely` で利用可能（`README.md` のドライバ探索・`SetChromeDriverPath` / `SetEdgeDriverPath`）。
+- **Firefox / Internet Explorer / Opera / PhantomJS** については、**COM の ProgId・型・メソッド署名は維持**するが、**起動はサポートしない**（`Start` / `StartRemotely` で **chrome と MicrosoftEdge 以外**を指定すると `ChromeOnlyBrowserError`）。
 - PhantomJS は SSL 等の理由により**サポート対象外**（スタブのみ）。
 
 ## 絶対的必須：下位互換性
