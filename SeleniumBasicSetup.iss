@@ -39,7 +39,9 @@ DirExistsWarning=no
 ArchitecturesInstallIn64BitMode=x64
 
 [Languages]
+; 英語を既定。日本語選択時は LICENSE.ja.txt をライセンス画面に表示する。
 Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"; LicenseFile: "LICENSE.ja.txt"
 
 [CustomMessages]
 MsgNETFrameworkNotInstalled=Microsoft .NET Framework 3.5 installation was Not detected. 
@@ -68,6 +70,7 @@ Source: "Selenium\bin\Release\Selenium64.tlb"; DestDir: "{app}"; Flags: ignoreve
 Source: "Selenium\bin\Help\Selenium.chm"; DestDir: "{app}"; Flags: ignoreversion; Components: pkg_core;                                                                                                    
 
 Source: "LICENSE.txt";   DestDir: "{app}"; Flags: ignoreversion overwritereadonly ; Attribs:readonly;
+Source: "LICENSE.ja.txt"; DestDir: "{app}"; Flags: ignoreversion overwritereadonly ; Attribs:readonly;
 Source: "CHANGELOG.txt"; DestDir: "{app}"; Flags: ignoreversion overwritereadonly ; Attribs:readonly;
 
 Source: "VbsConsole\bin\Release\vbsc.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: pkg_cons;
