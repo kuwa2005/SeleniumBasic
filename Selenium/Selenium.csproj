@@ -229,7 +229,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if exist "$(ProjectDir)..\References\chromedriver.exe" xcopy /D /Y "$(ProjectDir)..\References\chromedriver.exe" .</PostBuildEvent>
+    <PostBuildEvent>if exist "$(ProjectDir)..\References\chromedriver.exe" xcopy /D /Y "$(ProjectDir)..\References\chromedriver.exe" .
+if exist "$(ProjectDir)..\References\msedgedriver.exe" xcopy /D /Y "$(ProjectDir)..\References\msedgedriver.exe" .</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

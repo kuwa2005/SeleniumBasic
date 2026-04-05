@@ -35,6 +35,9 @@ namespace Selenium.ComInterfaces {
         [DispId(312), Description("chromedriver.exe のフルパス（ローカル起動時のみ）")]
         void SetChromeDriverPath(string path);
 
+        [DispId(313), Description("msedgedriver.exe のフルパス（ローカル起動時のみ）")]
+        void SetEdgeDriverPath(string path);
+
         #endregion
 
 

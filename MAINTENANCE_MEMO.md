@@ -14,8 +14,8 @@
 
 ## ブラウザ範囲（このフォーク）
 
-- **メンテナンス・実装の対象は Google Chrome（chromedriver）のみ**とする。
-- **Firefox / Internet Explorer / Microsoft Edge / Opera / PhantomJS** については、**COM の ProgId・型・メソッド署名は維持**するが、**起動ロジックは削除済み**（`Start` / `StartRemotely` は chrome のみ通す。他ブラウザ名は `ChromeOnlyBrowserError`）。
+- **メンテナンスの主対象は Google Chrome（chromedriver）**とする。**Microsoft Edge（Chromium / msedgedriver）**も `Start "edge"` / `EdgeDriver` で**ローカル・リモートとも利用可能**（`README.md` の探索順・`SetEdgeDriverPath`）。
+- **Firefox / Internet Explorer / Opera / PhantomJS** については、**COM の ProgId・型・メソッド署名は維持**するが、**起動ロジックは削除済み**（`Start` / `StartRemotely` は **chrome と MicrosoftEdge 以外**は `ChromeOnlyBrowserError`）。
 - PhantomJS は SSL 等の理由により**サポート対象外**（スタブのみ）。
 
 ## 絶対的必須：下位互換性
@@ -38,7 +38,7 @@
 ## 実装・運用の目安
 
 - 元リポジトリ Issue の**取り込み候補と推奨実装順**は `UPSTREAM_BACKLOG.md` を参照（随時更新）。
-- **chromedriver** の探索順は `README.md`（環境変数・サブフォルダ・PATH・`SetChromeDriverPath`）。
+- **chromedriver** / **msedgedriver** の探索順は `README.md`（環境変数・サブフォルダ・PATH・`SetChromeDriverPath` / `SetEdgeDriverPath`）。
 - upstream からの更新は `upstream` リモートで **定期的に fetch** し、必要なら取り込む。
 - 元 Issue / PR を手がける場合、自分のフォークでは **「Upstream #番号」へのリンク**と要約を Issue やコミットメッセージに残すと追跡しやすい。
 - 変更は **小さな単位のコミット** とし、**互換に触れるか**を意識した説明を付ける。

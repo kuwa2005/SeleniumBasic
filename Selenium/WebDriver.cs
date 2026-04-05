@@ -199,6 +199,17 @@ namespace Selenium {
             Capabilities["chrome.serverBinary"] = path;
         }
 
+        /// <summary>
+        /// ローカル起動時のみ有効。msedgedriver.exe（または edgedriver.exe）のフルパス。
+        /// </summary>
+        public void SetEdgeDriverPath(string path) {
+            if (string.IsNullOrEmpty(path))
+                throw new Errors.ArgumentError("Argument 'path' cannot be null or empty.");
+            if (!File.Exists(path))
+                throw new Errors.FileNotFoundError(path);
+            Capabilities["edge.serverBinary"] = path;
+        }
+
         #endregion
 
 
@@ -221,7 +232,7 @@ namespace Selenium {
         /// <summary>
         /// Starts a new Selenium testing session
         /// </summary>
-        /// <param name="browser">このフォークでは chrome のみ（別名 cr）。他は ChromeOnlyBrowserError。</param>
+        /// <param name="browser">chrome（別名 cr）または edge / MicrosoftEdge。他は ChromeOnlyBrowserError。</param>
         /// <param name="baseUrl">The base URL</param>
         /// <example>
         /// <code lang="vbs">	
@@ -233,10 +244,15 @@ namespace Selenium {
         public void Start(string browser = null, string baseUrl = null) {
             try {
                 browser = ExpendBrowserName(browser);
-                EnsureChromeOnly(browser);
+                EnsureChromeOrEdgeOnly(browser);
 
-                _service = ChromeDriver.StartService(this);
-                this.Capabilities.BrowserName = "chrome";
+                if (browser == "chrome") {
+                    _service = ChromeDriver.StartService(this);
+                    this.Capabilities.BrowserName = "chrome";
+                } else {
+                    _service = EdgeDriver.StartService(this);
+                    this.Capabilities.BrowserName = "MicrosoftEdge";
+                }
 
                 RegisterRunningObject();
 
@@ -256,7 +272,7 @@ namespace Selenium {
         /// Starts remotely a new Selenium testing session
         /// </summary>
         /// <param name="executorUri">Remote executor address (ex : "http://localhost:4444/wd/hub")</param>
-        /// <param name="browser">このフォークでは chrome のみ。リモート Grid 上のセッションも Chrome として起動する。</param>
+        /// <param name="browser">chrome または edge / MicrosoftEdge。他は ChromeOnlyBrowserError。</param>
         /// <param name="version">Browser version</param>
         /// <param name="platform">Platform: WINDOWS, LINUX, MAC, ANDROID...</param>
         /// <example>
@@ -269,12 +285,17 @@ namespace Selenium {
         public void StartRemotely(string executorUri, string browser = null, string version = null, string platform = null) {
             try {
                 browser = ExpendBrowserName(browser);
-                EnsureChromeOnly(browser);
+                EnsureChromeOrEdgeOnly(browser);
 
-                ChromeDriver.ExtendCapabilities(this, true);
+                if (browser == "chrome") {
+                    ChromeDriver.ExtendCapabilities(this, true);
+                    this.Capabilities.BrowserName = "chrome";
+                } else {
+                    EdgeDriver.ExtendCapabilities(this, true);
+                    this.Capabilities.BrowserName = "MicrosoftEdge";
+                }
 
                 this.Capabilities.Platform = platform;
-                this.Capabilities.BrowserName = "chrome";
                 if (!string.IsNullOrEmpty(version))
                     this.Capabilities.BrowserVersion = version;
 
@@ -308,8 +329,8 @@ namespace Selenium {
             this.Dispose();
         }
 
-        static void EnsureChromeOnly(string normalizedBrowser) {
-            if (normalizedBrowser != "chrome")
+        static void EnsureChromeOrEdgeOnly(string normalizedBrowser) {
+            if (normalizedBrowser != "chrome" && normalizedBrowser != "MicrosoftEdge")
                 throw new Errors.ChromeOnlyBrowserError(normalizedBrowser);
         }
 
