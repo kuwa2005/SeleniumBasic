@@ -14,7 +14,7 @@
 
 1. **フェーズ A — 土台**: ドライバ探索・パス・ファイル名（多くの「動かない」の前提を直す）
 2. **フェーズ B — プロセス周り**: 起動・権限・ジョブオブジェクト（再現できれば効果大）
-3. **フェーズ C — Chrome/Edge 実用**: アタッチ、ウィンドウ/タブ、起動直後の挙動
+3. **フェーズ C — Chrome/Edge 実用**: ウィンドウ/タブ、起動直後の挙動（**[#267](https://github.com/florentbr/SeleniumBasic/issues/267) 既存 Chrome へのアタッチはこのフォークでは対応しない**）
 4. **フェーズ D — モダン DOM**: Shadow DOM 等（**既定挙動は変えず**、追加 API / オプションで寄せる）
 5. **フェーズ E — 待機・細部**: ExecuteScript 待ち、SendKeys、frame 等
 
@@ -38,7 +38,7 @@
 
 | 順 | Upstream | 題名（要約） | 難易度 | 状態 | メモ |
 |----|----------|----------------|--------|------|------|
-| C1 | [#267](https://github.com/florentbr/SeleniumBasic/issues/267) | 既存 Chrome インスタンスにアタッチできない（114 以降） | H | 未着手 | 引数・ポート・セキュリティ設定の変化 |
+| C1 | [#267](https://github.com/florentbr/SeleniumBasic/issues/267) | 既存 Chrome インスタンスにアタッチできない（114 以降） | H | **実施しない** | このフォークのスコープ外（メンテ負荷・仕様変化に追わない方針） |
 | C2 | [#268](https://github.com/florentbr/SeleniumBasic/issues/268) | ウィンドウ切替（タイトル） | M | 未着手 | [#203](https://github.com/florentbr/SeleniumBasic/issues/203) タブ切替と関連 |
 | C3 | [#276](https://github.com/florentbr/SeleniumBasic/issues/276) | Edge 119 で壊れた疑い | M | 未着手 | |
 | C4 | [#282](https://github.com/florentbr/SeleniumBasic/issues/282) | `.Start "edge"` で空白ページ | M | 未着手 | C3 とまとめて Edge 起動経路を見る |
@@ -67,6 +67,7 @@
 
 ## 意図的に後回し（このバックログから外す／別メモ）
 
+- **[#267](https://github.com/florentbr/SeleniumBasic/issues/267)（既存 Chrome へのアタッチ）**は **実装しない**（上表 C1 参照）。
 - 別プロジェクト移行、Captcha、コード署名、特定サイトのスクレイピング手順、誤検知トロイの話などは **本バックログのスコープ外**（必要なら別ファイル）。
 
 ## 作業時のメモ欄（自由記述）
