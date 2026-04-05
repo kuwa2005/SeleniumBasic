@@ -2,7 +2,6 @@
 using Selenium.Internal;
 using System;
 using System.IO;
-using System.Net;
 using System.Runtime.InteropServices;
 
 namespace Selenium {
@@ -58,12 +57,75 @@ namespace Selenium {
             var svc = new DriverService();
             svc.AddArgument("--port=" + svc.IPEndPoint.Port.ToString());
             svc.AddArgument("--silent");
-            svc.Start("chromedriver.exe");
+            svc.Start(ResolveChromeDriverPath(wd));
             return svc;
+        }
+
+        /// <summary>
+        /// chromedriver の実体を解決する。優先順: chrome.serverBinary → 環境変数 → Selenium.dll と同じフォルダ配下 → PATH。
+        /// </summary>
+        static string ResolveChromeDriverPath(WebDriver wd) {
+            Capabilities capa = wd.Capabilities;
+            object o;
+            if (capa.TryGetValue<object>("chrome.serverBinary", out o)) {
+                capa.Remove("chrome.serverBinary");
+                string p = Convert.ToString(o);
+                if (!string.IsNullOrEmpty(p) && File.Exists(p))
+                    return Path.GetFullPath(p);
+            }
+
+            foreach (string envName in new[] { "CHROMEDRIVER_PATH", "webdriver.chrome.driver", "CHROMEDRIVER" }) {
+                string ev = Environment.GetEnvironmentVariable(envName);
+                if (!string.IsNullOrEmpty(ev) && File.Exists(ev))
+                    return Path.GetFullPath(ev);
+            }
+
+            string lib = IOExt.GetAssemblyDirectory();
+            foreach (string candidate in GetBundledStyleChromeDriverPaths(lib)) {
+                if (File.Exists(candidate))
+                    return Path.GetFullPath(candidate);
+            }
+
+            string fromPath = FindChromeDriverInPath();
+            if (!string.IsNullOrEmpty(fromPath))
+                return fromPath;
+
+            string fallback = Path.Combine(lib, "chromedriver.exe");
+            throw new Errors.FileNotFoundError(fallback);
+        }
+
+        static string[] GetBundledStyleChromeDriverPaths(string libraryDir) {
+            return new[] {
+                Path.Combine(libraryDir, "chromedriver.exe"),
+                Path.Combine(libraryDir, "chromedriver-win64", "chromedriver.exe"),
+                Path.Combine(libraryDir, "chromedriver-win32", "chromedriver.exe"),
+                Path.Combine(libraryDir, "chromedriver", "chromedriver.exe")
+            };
+        }
+
+        static string FindChromeDriverInPath() {
+            string path = Environment.GetEnvironmentVariable("PATH");
+            if (string.IsNullOrEmpty(path))
+                return null;
+            foreach (string dir in path.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries)) {
+                try {
+                    string trimmed = dir.Trim().Trim('"');
+                    if (trimmed.Length == 0)
+                        continue;
+                    string full = Path.Combine(trimmed, "chromedriver.exe");
+                    if (File.Exists(full))
+                        return Path.GetFullPath(full);
+                } catch {
+                }
+            }
+            return null;
         }
 
         internal static void ExtendCapabilities(WebDriver wd, bool remote) {
             Capabilities capa = wd.Capabilities;
+
+            if (remote)
+                capa.Remove("chrome.serverBinary");
 
             Dictionary opts;
             if (!capa.TryGetValue("chromeOptions", out opts))

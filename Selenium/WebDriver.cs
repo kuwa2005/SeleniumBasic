@@ -188,6 +188,17 @@ namespace Selenium {
             this.Binary = path;
         }
 
+        /// <summary>
+        /// ローカル起動時のみ有効。chromedriver.exe のフルパス（Chrome for Testing の解凍先など）。
+        /// </summary>
+        public void SetChromeDriverPath(string path) {
+            if (string.IsNullOrEmpty(path))
+                throw new Errors.ArgumentError("Argument 'path' cannot be null or empty.");
+            if (!File.Exists(path))
+                throw new Errors.FileNotFoundError(path);
+            Capabilities["chrome.serverBinary"] = path;
+        }
+
         #endregion
 
 

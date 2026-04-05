@@ -1,0 +1,19 @@
+name: ビルド
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: MSBuild を PATH に追加
+        uses: microsoft/setup-msbuild@v2
+
+      - name: ソリューションを Release ビルド
+        run: msbuild SeleniumBasic.sln /p:Configuration=Release /m

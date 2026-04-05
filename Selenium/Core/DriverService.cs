@@ -82,7 +82,9 @@ namespace Selenium.Core {
             env["TEMP"] = _temp_folder;
             env["TMP"] = _temp_folder;
 
-            string servicePath = Path.Combine(_library_dir, filename);
+            string servicePath = Path.IsPathRooted(filename)
+                ? Path.GetFullPath(filename)
+                : Path.Combine(_library_dir, filename);
             if (!File.Exists(servicePath))
                 throw new Errors.FileNotFoundError(servicePath);
 

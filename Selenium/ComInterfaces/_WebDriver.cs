@@ -32,6 +32,9 @@ namespace Selenium.ComInterfaces {
         [DispId(310), Description("Set the path to the browser executable to use")]
         void SetBinary(string path);
 
+        [DispId(312), Description("chromedriver.exe のフルパス（ローカル起動時のみ）")]
+        void SetChromeDriverPath(string path);
+
         #endregion
 
 

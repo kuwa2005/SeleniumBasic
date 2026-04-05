@@ -3,6 +3,8 @@
 [florentbr/SeleniumBasic](https://github.com/florentbr/SeleniumBasic) の Open Issue から、**このフォークで追う価値が高いもの**を選び、**実装順（おまかせ版）**を固定したメモ。  
 方針は `MAINTENANCE_MEMO.md`（特に**下位互換最優先**）に従う。
 
+**スコープ**: ブラウザは **Chrome のみ**（フェーズ C の Edge 系 Issue は参考用・優先度低）。
+
 ## 凡例
 
 - **難易度**: L = 比較的局所 / M = 複数モジュール・要検証 / H = 仕様・ブラウザ・ドライバ横断
@@ -22,8 +24,8 @@
 
 | 順 | Upstream | 題名（要約） | 難易度 | 状態 | メモ |
 |----|----------|----------------|--------|------|------|
-| A1 | [#274](https://github.com/florentbr/SeleniumBasic/issues/274) | 新しい ChromeDriver で `chromedriver.exe` が見つからない | M | 未着手 | 旧パス・旧ファイル名は**必ずフォールバック** |
-| A2 | [#287](https://github.com/florentbr/SeleniumBasic/issues/287) | VBA から ChromeDriver パスを変える構文 | L | 未着手 | A1 と同時設計が効率的 |
+| A1 | [#274](https://github.com/florentbr/SeleniumBasic/issues/274) | 新しい ChromeDriver で `chromedriver.exe` が見つからない | M | **対応済** | 複数候補パス・環境変数・PATH。`README.md` 参照 |
+| A2 | [#287](https://github.com/florentbr/SeleniumBasic/issues/287) | VBA から ChromeDriver パスを変える構文 | L | **対応済** | `SetChromeDriverPath` / `chrome.serverBinary`（`README.md`） |
 
 ## フェーズ B
 
