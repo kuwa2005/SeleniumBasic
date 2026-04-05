@@ -58,6 +58,7 @@ namespace Selenium {
         internal string Profile = null;
         internal string Binary = null;
         internal bool Persistant = false;
+        internal bool ApplyExcludeEnableAutomationSwitch = false;
 
         private Timeouts timeouts = new Timeouts();
         private IDriverService _service = null;
@@ -208,6 +209,36 @@ namespace Selenium {
             if (!File.Exists(path))
                 throw new Errors.FileNotFoundError(path);
             Capabilities["edge.serverBinary"] = path;
+        }
+
+        /// <summary>
+        /// Chrome / Edge の chromeOptions・edgeOptions に excludeSwitches（enable-automation）と useAutomationExtension=false を付与する。
+        /// navigator.webdriver の検出緩和の一助（完全な無効化ではない）。セッション開始前に呼ぶ。
+        /// </summary>
+        public void SetExcludeEnableAutomationSwitch(bool enabled = true) {
+            ApplyExcludeEnableAutomationSwitch = enabled;
+        }
+
+        internal void MergeExcludeEnableAutomationIntoOptions(Dictionary opts) {
+            if (!ApplyExcludeEnableAutomationSwitch)
+                return;
+            object o;
+            List switches;
+            if (!opts.TryGetValue("excludeSwitches", out o) || o == null) {
+                switches = new List();
+                opts["excludeSwitches"] = switches;
+            } else {
+                switches = o as List;
+                if (switches == null)
+                    throw new Errors.ArgumentError("excludeSwitches は Selenium.List である必要があります。");
+            }
+            const string automationSwitch = "enable-automation";
+            for (int i = 0; i < switches.Count; i++) {
+                if (automationSwitch.Equals(Convert.ToString(switches[i])))
+                    return;
+            }
+            switches.Add(automationSwitch);
+            opts["useAutomationExtension"] = false;
         }
 
         #endregion

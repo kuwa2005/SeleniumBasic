@@ -38,7 +38,7 @@
 ## 実装・運用の目安
 
 - 元リポジトリ Issue の**取り込み候補と推奨実装順**は `UPSTREAM_BACKLOG.md` を参照（随時更新）。
-- **chromedriver** / **msedgedriver** の探索順は `README.md`（環境変数・サブフォルダ・PATH・`SetChromeDriverPath` / `SetEdgeDriverPath`）。
+- **chromedriver** / **msedgedriver** の探索順は `README.md`（環境変数・サブフォルダ・PATH・`SetChromeDriverPath` / `SetEdgeDriverPath`）。ドライバ起動の Access denied 回避は **`SELENIUM_BASIC_DRIVER_NO_JOB`**（`README.md`）。
 - upstream からの更新は `upstream` リモートで **定期的に fetch** し、必要なら取り込む。
 - 元 Issue / PR を手がける場合、自分のフォークでは **「Upstream #番号」へのリンク**と要約を Issue やコミットメッセージに残すと追跡しやすい。
 - 変更は **小さな単位のコミット** とし、**互換に触れるか**を意識した説明を付ける。

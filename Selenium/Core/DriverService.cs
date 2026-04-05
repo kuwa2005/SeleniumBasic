@@ -1,4 +1,5 @@
 ﻿using Selenium.Internal;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -77,6 +78,20 @@ namespace Selenium.Core {
             _arguments.Add(argument);
         }
 
+        static bool UseJobObjectForDriverProcess() {
+            string v = Environment.GetEnvironmentVariable("SELENIUM_BASIC_DRIVER_NO_JOB");
+            if (string.IsNullOrEmpty(v))
+                return true;
+            v = v.Trim();
+            if (v == "1")
+                return false;
+            if (v.Equals("true", StringComparison.OrdinalIgnoreCase))
+                return false;
+            if (v.Equals("yes", StringComparison.OrdinalIgnoreCase))
+                return false;
+            return true;
+        }
+
         public void Start(string filename, bool hide = true) {
             Hashtable env = ProcessExt.GetStdEnvironmentVariables();
             env["TEMP"] = _temp_folder;
@@ -88,8 +103,8 @@ namespace Selenium.Core {
             if (!File.Exists(servicePath))
                 throw new Errors.FileNotFoundError(servicePath);
 
-            //Start the process
-            _process = ProcessExt.Start(servicePath, _arguments, null, env, true, true);
+            //Start the process（Job オブジェクト付与で Access denied になる環境向け: SELENIUM_BASIC_DRIVER_NO_JOB=1）
+            _process = ProcessExt.Start(servicePath, _arguments, null, env, true, UseJobObjectForDriverProcess());
 
             //Waits for the port to be listening
             if (!_endpoint.WaitForListening(10000, 150))

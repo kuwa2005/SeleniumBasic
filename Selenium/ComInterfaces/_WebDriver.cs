@@ -38,6 +38,9 @@ namespace Selenium.ComInterfaces {
         [DispId(313), Description("msedgedriver.exe のフルパス（ローカル起動時のみ）")]
         void SetEdgeDriverPath(string path);
 
+        [DispId(314), Description("enable-automation を excludeSwitches に追加（Chrome / Edge）")]
+        void SetExcludeEnableAutomationSwitch(bool enabled = true);
+
         #endregion
 
 
@@ -233,7 +236,10 @@ namespace Selenium.ComInterfaces {
 
         [DispId(1260), Description("Waits for an element to disappear from the page")]
         void WaitNotElement([MarshalAs(UnmanagedType.Struct)]By by, int timeout = -1);
-        
+
+        [DispId(1261), Description("Waits until the element is absent or not displayed (invisibilityOfElementLocated)")]
+        void WaitInvisibilityOfElementLocated([MarshalAs(UnmanagedType.Struct)]By by, int timeout = -1);
+
         #endregion
 
 

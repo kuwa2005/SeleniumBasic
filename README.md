@@ -29,6 +29,17 @@
 3. `Selenium.dll` と同じフォルダの `msedgedriver.exe` / `edgedriver.exe` / `edgedriver-win64\` 配下
 4. **`PATH`** 上の `msedgedriver.exe` または `edgedriver.exe`
 
+## オプション・トラブルシューティング
+
+- **chromedriver / msedgedriver 起動時に Access denied（Job オブジェクト）**  
+  環境変数 **`SELENIUM_BASIC_DRIVER_NO_JOB=1`**（または `true` / `yes`）を設定すると、ドライバプロセスに Job を付けずに起動します（upstream #283 / #291 系の回避策）。
+
+- **自動化バナー・`navigator.webdriver` 検出の緩和（完全ではない）**  
+  セッション開始前に **`SetExcludeEnableAutomationSwitch True`** を呼ぶと、`excludeSwitches` に `enable-automation` と `useAutomationExtension: false` を付与します（Chrome / Edge）。さらに抑えたい場合は **`AddArgument "--disable-blink-features=AutomationControlled"`** などを併用してください（upstream #216）。
+
+- **要素が非表示になるまで待つ（Selenium の invisibilityOfElementLocated 相当）**  
+  **`WaitInvisibilityOfElementLocated`** を使用します（DOM から消えるまでしか待たない **`WaitNotElement`** とは別）。`By.Any` は未対応です。
+
 ## ライセンス
 
 - 英語: [`LICENSE.txt`](LICENSE.txt)

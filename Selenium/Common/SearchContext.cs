@@ -37,6 +37,37 @@ namespace Selenium {
         }
 
         /// <summary>
+        /// Selenium の invisibilityOfElementLocated に相当。要素が DOM から消えるか、非表示になるまで待つ（<see cref="WaitNotElement"/> は DOM からの消失のみ）。
+        /// </summary>
+        public void WaitInvisibilityOfElementLocated(By by, int timeout = -1) {
+            if (by.Strategy == Strategy.Any)
+                throw new Errors.ArgumentError("WaitInvisibilityOfElementLocated は By.Any には対応していません。");
+            RemoteSession session = this.session;
+            DateTime endTime = session.GetEndTime(timeout);
+            while (true) {
+                WebElement el;
+                try {
+                    el = FindElement(by, 0, false);
+                } catch (Errors.StaleElementReferenceError) {
+                    return;
+                }
+                if (el == null)
+                    return;
+                try {
+                    if (!el.IsDisplayed)
+                        return;
+                } catch (Errors.StaleElementReferenceError) {
+                    return;
+                }
+                if (DateTime.UtcNow > endTime) {
+                    int ms = timeout == -1 ? session.timeouts.timeout_implicitwait : timeout;
+                    throw new Errors.TimeoutError("WaitInvisibilityOfElementLocated がタイムアウトしました ({0}ms): {1}", ms, by);
+                }
+                SysWaiter.Wait();
+            }
+        }
+
+        /// <summary>
         /// Finds the first child element matching the given mechanism and value.
         /// </summary>
         /// <param name="strategy">The mechanism by which to find the elements.</param>
