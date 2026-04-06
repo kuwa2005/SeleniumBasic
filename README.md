@@ -7,6 +7,10 @@
 - 開発方針・互換性: [`MAINTENANCE_MEMO.md`](MAINTENANCE_MEMO.md)
 - upstream Issue バックログ: [`UPSTREAM_BACKLOG.md`](UPSTREAM_BACKLOG.md)
 
+## サンプル（`Examples/`）
+
+- **VBScript / JavaScript / AutoIt** の例は **Google Chrome または Microsoft Edge** 前提です（Firefox / PhantomJS / IE 向けの旧サンプルは削除済み）。
+
 ## ビルド
 
 - Visual Studio または MSBuild で `SeleniumBasic.sln` を開き、**Release**（推奨）または Debug でビルド

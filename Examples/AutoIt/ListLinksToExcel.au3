@@ -1,10 +1,10 @@
-; AutoIt script example with Selenium
+; AutoIt script example with Selenium（Chrome / このフォーク正式対応）
 ; https://www.autoitscript.com
 ;
 
 Func Main()
     ; Launch the browser and open an URL
-    Dim $driver = ObjCreate("Selenium.FirefoxDriver")
+    Dim $driver = ObjCreate("Selenium.ChromeDriver")
     $driver.Get("https://en.wikipedia.org/wiki/Main_Page")
 
     ; List all links, remove duplicates and sort them
