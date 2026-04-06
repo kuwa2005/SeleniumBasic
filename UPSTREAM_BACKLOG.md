@@ -10,7 +10,7 @@
 ## 凡例
 
 - **難易度**: L = 比較的局所 / M = 複数モジュール・要検証 / H = 仕様・ブラウザ・ドライバ横断
-- **状態**: 未着手 / 調査中 / PR 予定 / 保留（理由メモ）
+- **状態**: 未着手 / 調査中 / PR 予定 / 保留（理由メモ） / **今回見送り**（要望・拡張レベル。フォーク Issue は `not planned` でクローズ）
 
 ## 推奨フェーズ（全体の進め方）
 
@@ -41,34 +41,35 @@
 | 順 | Upstream | 題名（要約） | 難易度 | 状態 | フォーク Issue | メモ |
 |----|----------|----------------|--------|------|----------------|------|
 | C1 | [#267](https://github.com/florentbr/SeleniumBasic/issues/267) | 既存 Chrome インスタンスにアタッチできない（114 以降） | H | **実施しない** | [#8](https://github.com/kuwa2005/SeleniumBasic/issues/8) | このフォークのスコープ外（メンテ負荷・仕様変化に追わない方針） |
-| C2 | [#268](https://github.com/florentbr/SeleniumBasic/issues/268) | ウィンドウ切替（タイトル） | M | 未着手 | [#13](https://github.com/kuwa2005/SeleniumBasic/issues/13) | [#203](https://github.com/florentbr/SeleniumBasic/issues/203) タブ切替と関連 |
-| C3 | [#276](https://github.com/florentbr/SeleniumBasic/issues/276) | Edge 119 で壊れた疑い | M | 未着手 | [#14](https://github.com/kuwa2005/SeleniumBasic/issues/14) | |
-| C4 | [#282](https://github.com/florentbr/SeleniumBasic/issues/282) | `.Start "edge"` で空白ページ | M | 未着手 | [#15](https://github.com/kuwa2005/SeleniumBasic/issues/15) | C3 とまとめて Edge 起動経路を見る |
-| C5 | [#248](https://github.com/florentbr/SeleniumBasic/issues/248) | Edge が開かない（ドライバ追加後も） | M | 未着手 | [#16](https://github.com/kuwa2005/SeleniumBasic/issues/16) | |
-| C6 | [#241](https://github.com/florentbr/SeleniumBasic/issues/241) | Edge ヘッドレスが動かない | M | 未着手 | [#17](https://github.com/kuwa2005/SeleniumBasic/issues/17) | |
+| C2 | [#268](https://github.com/florentbr/SeleniumBasic/issues/268) | ウィンドウ切替（タイトル） | M | **今回見送り** | [#13](https://github.com/kuwa2005/SeleniumBasic/issues/13) | 要望レベル。フォーク Issue クローズ（not planned） |
+| C3 | [#276](https://github.com/florentbr/SeleniumBasic/issues/276) | Edge 119 で壊れた疑い | M | **今回見送り** | [#14](https://github.com/kuwa2005/SeleniumBasic/issues/14) | 同上 |
+| C4 | [#282](https://github.com/florentbr/SeleniumBasic/issues/282) | `.Start "edge"` で空白ページ | M | **今回見送り** | [#15](https://github.com/kuwa2005/SeleniumBasic/issues/15) | 同上 |
+| C5 | [#248](https://github.com/florentbr/SeleniumBasic/issues/248) | Edge が開かない（ドライバ追加後も） | M | **今回見送り** | [#16](https://github.com/kuwa2005/SeleniumBasic/issues/16) | 同上 |
+| C6 | [#241](https://github.com/florentbr/SeleniumBasic/issues/241) | Edge ヘッドレスが動かない | M | **今回見送り** | [#17](https://github.com/kuwa2005/SeleniumBasic/issues/17) | 同上 |
 
 ## フェーズ D（互換に注意）
 
 | 順 | Upstream | 題名（要約） | 難易度 | 状態 | フォーク Issue | メモ |
 |----|----------|----------------|--------|------|----------------|------|
-| D1 | [#280](https://github.com/florentbr/SeleniumBasic/issues/280) | `shadowRoot` が Dictionary（WebElement にしたい） | M | 未着手 | [#18](https://github.com/kuwa2005/SeleniumBasic/issues/18) | **返却型の既定変更は避け**、別 API / フラグで |
-| D2 | [#198](https://github.com/florentbr/SeleniumBasic/issues/198) | Shadow-root 内の要素 | M | 未着手 | [#19](https://github.com/kuwa2005/SeleniumBasic/issues/19) | D1 と一体設計 |
+| D1 | [#280](https://github.com/florentbr/SeleniumBasic/issues/280) | `shadowRoot` が Dictionary（WebElement にしたい） | M | **今回見送り** | [#18](https://github.com/kuwa2005/SeleniumBasic/issues/18) | 要望レベル。フォーク Issue クローズ（not planned） |
+| D2 | [#198](https://github.com/florentbr/SeleniumBasic/issues/198) | Shadow-root 内の要素 | M | **今回見送り** | [#19](https://github.com/kuwa2005/SeleniumBasic/issues/19) | 同上 |
 
 ## フェーズ E
 
 | 順 | Upstream | 題名（要約） | 難易度 | 状態 | フォーク Issue | メモ |
 |----|----------|----------------|--------|------|----------------|------|
-| E1 | [#273](https://github.com/florentbr/SeleniumBasic/issues/273) | Chrome 117: click 後 drag でリンク破損 | M | 未着手 | [#20](https://github.com/kuwa2005/SeleniumBasic/issues/20) | 再現が鍵 |
-| E2 | [#252](https://github.com/florentbr/SeleniumBasic/issues/252) | loading status 判定エラー（最新 ChromeDriver） | H | 未着手 | [#21](https://github.com/kuwa2005/SeleniumBasic/issues/21) | [#240](https://github.com/florentbr/SeleniumBasic/issues/240) と関連しうる |
-| E3 | [#270](https://github.com/florentbr/SeleniumBasic/issues/270) / [#189](https://github.com/florentbr/SeleniumBasic/issues/189) | frame 内要素 | M | 未着手 | [#22](https://github.com/kuwa2005/SeleniumBasic/issues/22) | |
-| E4 | [#259](https://github.com/florentbr/SeleniumBasic/issues/259) | ExecuteScript の非同期完了待ち | M | 未着手 | [#23](https://github.com/kuwa2005/SeleniumBasic/issues/23) | **既定タイムアウトは据え置き**、明示指定で |
-| E5 | [#244](https://github.com/florentbr/SeleniumBasic/issues/244) | 追加 HTTP ヘッダ | M | 未着手 | [#24](https://github.com/kuwa2005/SeleniumBasic/issues/24) | capabilities 経路 |
+| E1 | [#273](https://github.com/florentbr/SeleniumBasic/issues/273) | Chrome 117: click 後 drag でリンク破損 | M | **今回見送り** | [#20](https://github.com/kuwa2005/SeleniumBasic/issues/20) | 要望レベル。フォーク Issue クローズ（not planned） |
+| E2 | [#252](https://github.com/florentbr/SeleniumBasic/issues/252) | loading status 判定エラー（最新 ChromeDriver） | H | **今回見送り** | [#21](https://github.com/kuwa2005/SeleniumBasic/issues/21) | 同上 |
+| E3 | [#270](https://github.com/florentbr/SeleniumBasic/issues/270) / [#189](https://github.com/florentbr/SeleniumBasic/issues/189) | frame 内要素 | M | **今回見送り** | [#22](https://github.com/kuwa2005/SeleniumBasic/issues/22) | 同上 |
+| E4 | [#259](https://github.com/florentbr/SeleniumBasic/issues/259) | ExecuteScript の非同期完了待ち | M | **今回見送り** | [#23](https://github.com/kuwa2005/SeleniumBasic/issues/23) | 同上 |
+| E5 | [#244](https://github.com/florentbr/SeleniumBasic/issues/244) | 追加 HTTP ヘッダ | M | **今回見送り** | [#24](https://github.com/kuwa2005/SeleniumBasic/issues/24) | 同上 |
 | E6 | [#216](https://github.com/florentbr/SeleniumBasic/issues/216) | `navigator.webdriver` 無効化 | L | **対応済** | [#25](https://github.com/kuwa2005/SeleniumBasic/issues/25) | `SetExcludeEnableAutomationSwitch` + README（完全無効化ではない） |
-| E7 | [#266](https://github.com/florentbr/SeleniumBasic/issues/266) | プロファイルと `scope_dir` | M | 未着手 | [#26](https://github.com/kuwa2005/SeleniumBasic/issues/26) | |
+| E7 | [#266](https://github.com/florentbr/SeleniumBasic/issues/266) | プロファイルと `scope_dir` | M | **今回見送り** | [#26](https://github.com/kuwa2005/SeleniumBasic/issues/26) | 要望レベル。フォーク Issue クローズ（not planned） |
 | E8 | [#181](https://github.com/florentbr/SeleniumBasic/issues/181) | `invisibilityOfElementLocated` 等 | M | **対応済** | [#27](https://github.com/kuwa2005/SeleniumBasic/issues/27) | `WaitInvisibilityOfElementLocated`（`WaitNotElement` は DOM 消失のみ） |
 
 ## 意図的に後回し（このバックログから外す／別メモ）
 
+- **C2〜C6 / D1・D2 / E1〜E5 / E7** に対応するフォーク Issue（[#13](https://github.com/kuwa2005/SeleniumBasic/issues/13) 〜 [#24](https://github.com/kuwa2005/SeleniumBasic/issues/24)、[#26](https://github.com/kuwa2005/SeleniumBasic/issues/26)）は、**要望・拡張レベルとして今回のラウンドでは実装せず** `not planned` でクローズ済み。必要時は再オープンまたは新規 Issue。
 - **[#267](https://github.com/florentbr/SeleniumBasic/issues/267)（既存 Chrome へのアタッチ）**は **実装しない**（上表 C1・フォーク [#8](https://github.com/kuwa2005/SeleniumBasic/issues/8) 参照）。
 - 別プロジェクト移行、Captcha、コード署名、特定サイトのスクレイピング手順、誤検知トロイの話などは **本バックログのスコープ外**（フォーク追跡: [#28](https://github.com/kuwa2005/SeleniumBasic/issues/28)）。
 
